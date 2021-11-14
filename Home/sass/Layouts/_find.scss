@@ -4,6 +4,9 @@
     @include styleBackground(contain, center bottom, no-repeat);
     .find__img {
         padding-left: 80px;
+        @include mediaQuerry("large") {
+            padding-left: 0;
+        }
         img {
             display: block;
             width: 100%;

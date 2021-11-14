@@ -323,6 +323,12 @@ header .navbar .navbar__icon a:hover {
   padding-left: 80px;
 }
 
+@media screen and (max-width: 992px) {
+  .find .find__img {
+    padding-left: 0;
+  }
+}
+
 .find .find__img img {
   display: block;
   width: 100%;
