@@ -1,0 +1,107 @@
+header {
+    &.header__sticky {
+        background-color: $color-white;
+        position: fixed;
+        .navbar {
+            max-height: 50px;
+            .nav-item{
+                &.myActive {
+                    &::after {
+                        bottom: 8px;
+                    }
+                }
+            }
+        }
+    }
+    transition: all .6s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    .navbar {
+        padding-top: 0;
+        padding-bottom: 0;
+        .navbar-toggler {
+            background-color: rgba(219, 208, 242, .5);
+            .navbar-toggler-icon {
+                color: $color-black;
+                height: 100%;
+                line-height: 100%;
+                margin: 5px 0;
+                font-size: $fz-3;
+            }
+        }
+        .navbar-brand {
+            padding: 0;
+        }
+        .nav-item {
+            margin-right: 30px;
+            padding: 20px 0;
+            a {
+                @include styleTxt($fz-1, $fw-4, $color-black);
+                transition: all .5s;
+                &:hover {
+                    color: $color-purple;
+                }
+            }
+            &.myActive {
+                position: relative;
+                &::after {
+                    content: "";
+                    display: block;
+                    width: 10px;
+                    height: 10px;
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: $color-purple;
+                    border-radius: 50%;
+                }
+            }
+        }
+        .navbar__btn {
+            padding: 10px 15px;
+            margin-right: 15px;
+            font-size: $fz-1;
+            font-weight: $fw-3;
+        }
+        .navbar__icon {
+            a {
+                color: $color-black;
+                font-size: $fz-1;
+                margin-right: 10px;
+                transition: all .5s;
+                &:hover {
+                    color: $color-purple;
+                }
+            }
+        }
+    }
+}
+
+// Responsive
+@include mediaQuerry("extra-large") {
+    header {
+        background-color: $color-white;
+        position: fixed;
+        .navbar {
+            max-height: 50px;
+            .navbar-toggler {
+                background: transparent;
+            }
+            .navbar-brand {
+                img {
+                    display: block;
+                    max-height: 50px;
+                    object-fit: contain;
+                }
+            }
+            #myNavbar {
+                background-color: $color-white;
+                text-align: center;
+            }
+        }
+    }
+}

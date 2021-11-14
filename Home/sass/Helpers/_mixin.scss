@@ -1,0 +1,28 @@
+@mixin styleTxt($fz, $fw, $color) {
+    font-size: $fz;
+    font-weight: $fw;
+    color: $color;
+}
+
+@mixin styleBtn($bg, $bd, $color) {
+    background: $bg;
+    border: $bd;
+    color: $color;
+    border-radius: 50px;
+    transition: all .5s;
+}
+
+@mixin styleBackground($bg-size, $bg-position, $bg-repeat) {
+    background-size: $bg-size;
+    background-position: $bg-position;
+    background-repeat: $bg-repeat;
+}
+
+@mixin mediaQuerry($screen) {
+    @if (map-has-key($map:$breakpoints, $key:$screen)) {
+        $value: map-get($map:$breakpoints, $key:$screen);
+        @media screen and (max-width:$value) {
+            @content;
+        }
+    }
+}

@@ -1,0 +1,42 @@
+.about {
+    background-image: url(../img/yellow_top_wave_01.png);
+    @include styleBackground(contain, initial, no-repeat);
+    height: 700px;
+    @include mediaQuerry("extra-large") {
+        margin-top: 50px;
+        height: 500px;
+    }
+    @include mediaQuerry("large") {
+        height: 700px;
+        padding-top: 60px;
+    }
+    &__bg--bottom {
+        background-image: url(../img/Violet_top_left_wave.png);
+        @include styleBackground(contain, center bottom, no-repeat);
+        width: 100%;
+        height: 100%;
+        .container {
+            height: 100%;
+            .row {
+                height: 100%;
+                .about__title {
+                    p {
+                        @include styleTxt($fz-2 - 2, $fw-4, $color-purple);
+                    }
+                    h1 {
+                        @include styleTxt(60px, $fw-5, $color-black);
+                        @include mediaQuerry("extra-large") {
+                            font-size: 48px;
+                            line-height: 55px; 
+                        }
+                    }
+                }
+                img {
+                    @include mediaQuerry("extra-large") {
+                        max-width: 100%; 
+                    }
+                }
+            }
+        }
+    }
+}

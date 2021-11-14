@@ -1,0 +1,12 @@
+.btn-purple {
+    @include styleBtn($color-purple, 1px solid $color-purple, $color-white);
+    &:hover {
+        @include styleBtn($color-white, 1px solid $color-purple, $color-purple);
+    }
+}
+.btn-white {
+    @include styleBtn($color-white, 1px solid $color-white, $color-black);
+    &:hover {
+        @include styleBtn(transparent, 1px solid $color-white, $color-white);
+    }
+}

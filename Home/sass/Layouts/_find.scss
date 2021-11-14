@@ -1,0 +1,79 @@
+.find {
+    padding: 100px 0 30px;
+    background-image: url(../img/accent_bottom_wave_01.png);
+    @include styleBackground(contain, center bottom, no-repeat);
+    .find__img {
+        padding-left: 80px;
+        img {
+            display: block;
+            width: 100%;
+            object-fit: contain;
+        }
+    }
+    .find__form {
+        padding: 0 25px 50px;
+        box-shadow: 0 30px 30px -10px rgba(0, 0, 0, .2);
+        height: 100%;
+        border-radius: 0 0 15px 15px;
+        background-color: #fff;
+        form{
+            width: 100%;
+            h2 {
+                text-align: center;
+                @include styleTxt(44px, $fw-5,$color-black);
+                margin-bottom: 50px;
+            }
+            .row {
+                gap: 15px 0;
+                margin-bottom: 40px;
+                .find__input {
+                    padding: 10px;
+                    border: 1px solid $color-gray;
+                    border-radius: 20px;
+                    gap: 0 10px;
+                    span {
+                        line-height: 1;
+                        &.find__type{
+                            display: inline-block;
+                            width: 100%;
+                        }
+                        i {
+                            color: $color-purple
+                        }
+                        input, select, textarea {
+                            @include styleTxt($fz-1, $fw-3, $color-black);
+                            display: block;
+                            width: 100%;
+                            line-height: 1;
+                            border: none;
+                            &:focus {
+                                outline: none;
+                            }
+                        }
+                    }
+                }
+            }
+            button {
+                font-size: $fz-1 - 1;
+                font-weight: $fw-5;
+                padding: 10px 50px;
+            }
+        }
+    }
+}
+
+// Responsive 
+@include mediaQuerry("large") {
+    .find {
+        .container {
+            .row {
+                gap: 50px 0;
+                .find__img {
+                    img {
+                        max-width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
