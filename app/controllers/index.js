@@ -49,10 +49,19 @@ function getUserInfo() {
     user.moTa = getELE("MoTa").value;
     return user;
 }
+function restoreUserInfo(user) {
+    getELE("TaiKhoan").value = user.taiKhoan;
+    getELE("HoTen").value = user.hoTen;
+    getELE("MatKhau").value = user.matKhau;
+    getELE("Email").value = user.email;
+    getELE("HinhAnh").value = user.hinhAnh;
+    getELE("loaiNguoiDung").value = user.loaiND;
+    getELE("loaiNgonNgu").value = user.ngonNgu;
+    getELE("MoTa").value = user.moTa;
+}
 
-function validate(user, userList) {
+function validate(user) {
     var isValid = true;
-    isValid &= validateUser.checkEmpty(user.taiKhoan, "Tài khoản người dùng không được để trống", "spanTaiKhoanUser") && validateUser.checkAccount(user.taiKhoan, "Tài khoản người dùng đã tồn tại", "spanTaiKhoanUser", userList);
     isValid &= validateUser.checkEmpty(user.hoTen, "Họ tên người dùng không được để trống", "spanHoTenUser") && validateUser.checkName(user.hoTen, "Tên người dùng không hợp lệ", "spanHoTenUser");
     isValid &= validateUser.checkEmpty(user.matKhau, "Mật khẩu không được để trống", "spanMatKhauUser") && validateUser.checkPass(user.matKhau, "Mật khẩu không hợp lệ", "spanMatKhauUser");
     isValid &= validateUser.checkEmpty(user.email, "Email không được để trống", "spanEmailUser") && validateUser.checkEmail(user.email, "Email không hợp lệ", "spanEmailUser");
@@ -69,7 +78,8 @@ function addUser() {
         .then(function(userObj) {
             var user = getUserInfo();
             user.id = "";
-            var isValid = validate(user, userObj.data);
+            var isValid = validate(user);
+            isValid &= validateUser.checkEmpty(user.taiKhoan, "Tài khoản người dùng không được để trống", "spanTaiKhoanUser") && validateUser.checkAccount(user.taiKhoan, "Tài khoản người dùng đã tồn tại", "spanTaiKhoanUser", userObj.data);
             if (isValid) {
                 apiUser
                     .addUserApi(user)
@@ -80,10 +90,9 @@ function addUser() {
                         console.log(err);
                     })
             }
-
         })
         .catch(function(err) {
-            console.log(err);
+            console.log(err); 
         })
 }
 
@@ -98,12 +107,44 @@ function deleteUser(id) {
         })
 }
 
+function editUser(id) {
+    apiUser
+        .getUserApi()
+        .then(function(userObj) {
+            var user = getUserInfo();
+            var isValid = validate(user, userObj.data);
+            if (isValid) {
+                apiUser
+                    .getOneUserApi(id)
+                    .then(function(oneUserObj) {
+                        user.id = oneUserObj.data.id;
+                        apiUser
+                            .editUserApi(user.id, user)
+                            .then(function(oneUserObj) {
+                                getListUser();
+                            })
+                            .catch(function(err) {
+                                console.log(err);
+                            })
+                    })
+            };
+        })
+}
+
 function addBtn() {
     document.querySelector(".modal-title").innerHTML = "Thêm người dùng mới";
-    document.querySelector(".modal-footer").innerHTML = `<button class="btn btn-success" onclick="addUser()" data-dismiss="modal">Add User</button>`;
+    document.querySelector(".modal-footer").innerHTML = `<button class="btn btn-success" onclick="addUser()">Add User</button>`;
 }
 
 function editBtn(userId) {
-    document.querySelector(".modal-title").innerHTML = "Cập nhật thông tin người dùng";
-    document.querySelector(".modal-footer").innerHTML = `<button class="btn btn-success" onclick="">Update User</button>`;
+    apiUser
+        .getOneUserApi(userId)
+        .then(function(oneUserObj) {
+            restoreUserInfo(oneUserObj.data);
+            document.querySelector(".modal-title").innerHTML = "Cập nhật thông tin người dùng";
+            document.querySelector(".modal-footer").innerHTML = `<button class="btn btn-success" onclick="editUser('${userId}')">Update User</button>`;
+        })
+        .catch(function(err) {
+            console.log(err);
+        })
 }
